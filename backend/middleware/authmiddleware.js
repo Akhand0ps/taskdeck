@@ -35,7 +35,9 @@ module.exports.authUser = async(req,res,next)=>{
         }
 
         req.user = user;
+        console.log("auth success");
         return next();
+        
     }
     
     catch(err){
