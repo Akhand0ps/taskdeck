@@ -61,6 +61,46 @@ http://localhost:4000/api
 }
 ```
 
+### Get User Profile
+- **URL**: `/auth/profile`
+- **Method**: `GET`
+- **Headers**:
+```json
+{
+  "Authorization": "Bearer jwt_token"
+}
+```
+- **Success Response**:
+```json
+{
+  "user": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string"
+}
+```
+
+### Logout User
+- **URL**: `/auth/logout`
+- **Method**: `POST`
+- **Headers**:
+```json
+{
+  "Authorization": "Bearer jwt_token"
+}
+```
+- **Success Response**:
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+- **Notes**: 
+  - Invalidates the current JWT token
+  - Clears the cookie if present
+  - Adds token to blacklist
+
 ## Tasks Endpoints
 
 ### Get Tasks

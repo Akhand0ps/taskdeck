@@ -17,7 +17,7 @@ module.exports.register = async (req,res)=>{
 
 
     const {fullname,email,password}  = req.body;
-    console.log(email);
+    // console.log(email);
 
     const isUserExist = await UserModel.findOne({email});
 
@@ -53,7 +53,7 @@ module.exports.register = async (req,res)=>{
 
 module.exports.login = async (req,res,next)=>{
 
-    console.log(req.body);
+    // console.log(req.body);
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -85,16 +85,23 @@ module.exports.login = async (req,res,next)=>{
 
 
 module.exports.profile = async (req,res)=>{
-    res.status(200).json({user:req.user});
+
+    res.status(200).json({user:req.user.fullname,email:req.user.email});
+
 }
 
 
 module.exports.logout = async(req,res,next)=>{
+
+    console.log("Logout called");
     try{
 
+        // console.log();
+        // console.log(req.cookies.token);
         res.clearCookie("token");
 
         const token = req.cookies?.token || req.headers.authorization.split(" ")[1];
+
         await BlacklistToken.create({token});
 
         res.status(200).json({message:"Logged out successfully"});
