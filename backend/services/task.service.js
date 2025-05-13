@@ -1,9 +1,10 @@
 const TaskModel = require("../models/tasks.model");
 
 
-module.exports.createTask = async({
+module.exports.createtaskk = async({
     title,
     description,
+    isPublic,
     owner
 })=>{
 
@@ -15,6 +16,7 @@ module.exports.createTask = async({
         
         title,
         description,
+        isPublic,   
         owner
 
     });

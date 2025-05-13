@@ -86,7 +86,16 @@ module.exports.login = async (req,res,next)=>{
 
 module.exports.profile = async (req,res)=>{
 
-    res.status(200).json({user:req.user.fullname,email:req.user.email});
+    try{
+        res.status(200).json({
+        user:{
+            fullname:req.user.fullname,
+            email:req.user.email
+        }
+    });
+    }catch(err){
+        res.status(500).json({message:"Failed to fetch profile"});
+    }
 
 }
 

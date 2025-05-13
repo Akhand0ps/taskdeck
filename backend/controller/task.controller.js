@@ -1,14 +1,15 @@
 const TaskModel = require('../models/tasks.model');
-const UserModel = require("../models/user.model");
+const UserModel = require('../models/user.model');
 const TaskService = require('../services/task.service');
 
-module.exports.createTask = async(req,res)=>{
+module.exports.createTask = async(req,res,next)=>{
 
     try{
-        const {title,description} = req.body;
+        const {title,description,isPublic} = req.body;
+
         const owner = req.user._id;
 
-        const task = await TaskService.createTask({title,description,owner});
+        const task = await TaskService.createtaskk({title,description,isPublic,owner});
 
         res.status(201).json({message:"Task created successfully",task});
     }catch(err){
@@ -25,7 +26,9 @@ module.exports.getAllTasks = async(req,res)=>{
         const toSend = tasks.map((t) => ({
             title: t.title,
             description: t.description,
-            isCompleted: t.isCompleted
+            isCompleted: t.isCompleted,
+            isPublic: t.isPublic,
+            _id: t._id
         }));
 
         res.status(200).send(toSend);
@@ -180,7 +183,7 @@ module.exports.viewPublicTasks = async(req,res)=>{
 }
 
 module.exports.viewPUsers = async(req,res)=>{
-    
+    try {
         console.log('Fetching public tasks...');
         
         const usersIds = await TaskModel.distinct('owner', { isPublic: true });
@@ -191,10 +194,13 @@ module.exports.viewPUsers = async(req,res)=>{
         }
 
         const users = await UserModel.find({ _id: { $in: usersIds } })
-            .select('fullname email -_id');
+            .select("fullname email");
         console.log('Found users:', users);
 
         return res.status(200).json(users);
-
+    } catch (err) {
+        console.error('Error in viewPUsers:', err);
+        return res.status(500).json({ message: "nhi chla" });
+    }
     
 }
