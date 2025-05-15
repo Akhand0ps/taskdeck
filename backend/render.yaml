@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: taskdeck-api
+    env: node
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: DB_CONNECT
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SALT
+        sync: false
