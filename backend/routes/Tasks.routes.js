@@ -16,13 +16,14 @@ PATCH	/:id/complete	Mark task as completed/incomplete (optional)
 
 router.post('/',authMiddleware.authUser,TaskController.createTask)
 router.get('/',authMiddleware.authUser,TaskController.getAllTasks);
-router.get('/:id',authMiddleware.authUser,TaskController.getOneTask);
 router.put('/:id',authMiddleware.authUser,TaskController.updateTask);
 router.delete('/:id',authMiddleware.authUser,TaskController.deleteTask);
 router.patch('/:id/toggle',authMiddleware.authUser,TaskController.togglePublic);
 router.patch('/:id/complete',authMiddleware.authUser,TaskController.completeTask);
 router.get("/public/:userId",authMiddleware.authUser,TaskController.viewPublicTasks);
 router.get("/public",authMiddleware.authUser,TaskController.viewPUsers);
+router.get('/:id',authMiddleware.authUser,TaskController.getOneTask);
+
 
 
 
