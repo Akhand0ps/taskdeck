@@ -51,7 +51,7 @@ const PublicTasks = () =>{
                             selectedUser === user._id ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"
                         }`}
                     >
-                    {user.fullname.firstname} $ {user.fullname.lastname}
+                    {user.fullname.firstname}  {user.fullname.lastname}
                     </button>
                 ))}
             </div>
